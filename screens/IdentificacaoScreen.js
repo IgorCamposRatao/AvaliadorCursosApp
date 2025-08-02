@@ -30,7 +30,7 @@ export default function IdentificacaoScreen({ navigation }) {
           !cursoSelecionado && styles.buttonDisabled,
         ]}
         disabled={!cursoSelecionado}
-        onPress={() => navigation.navigate('Avaliacao', { curso: cursoSelecionado })}
+        onPress={() => navigation.navigate('Avaliacao1', { curso: cursoSelecionado })}
       >
         <Text style={styles.buttonText}>Avançar</Text>
       </TouchableOpacity>
