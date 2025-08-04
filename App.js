@@ -14,7 +14,11 @@ import AvaliacaoFinalScreen from './screens/AvaliacaoFinalScreen';
 
 import ConfirmacaoScreen from './screens/ConfirmacaoScreen';
 import AdminLoginScreen from './screens/AdminLoginScreen';
+
 import AdminDashboardScreen from './screens/AdminDashboardScreen';
+import AdminAvaliacoesScreen from './screens/AdminAvaliacoesScreen';
+
+
 
 const Stack = createNativeStackNavigator();
 
@@ -35,6 +39,7 @@ export default function App() {
         <Stack.Screen name="Confirmacao" component={ConfirmacaoScreen} />
         <Stack.Screen name="AdminLogin" component={AdminLoginScreen} />
         <Stack.Screen name="AdminDashboard" component={AdminDashboardScreen} />
+        <Stack.Screen name="AdminAvaliacoes" component={AdminAvaliacoesScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

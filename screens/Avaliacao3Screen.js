@@ -12,7 +12,7 @@ export default function Avaliacao3Screen({ navigation, route }) {
       curso,
       avaliacoes: {
         ...avaliacoes,
-        'Comunicação e Didática': nota,
+        didatica: nota,
       },
     });
   };

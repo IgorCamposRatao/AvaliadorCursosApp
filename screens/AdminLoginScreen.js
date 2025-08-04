@@ -5,7 +5,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'reac
 export default function AdminLoginScreen({ navigation }) {
   const [senha, setSenha] = useState('');
 
-  const senhaCorreta = 'admin123'; // Você pode trocar por outra senha
+  const senhaCorreta = '12345'; // Você pode trocar por outra senha
 
   const autenticar = () => {
     if (senha === senhaCorreta) {

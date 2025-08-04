@@ -11,7 +11,7 @@ export default function Avaliacao1Screen({ navigation, route }) {
     navigation.navigate('Avaliacao2', {
       curso,
       avaliacoes: {
-        'Clareza e Qualidade do Conteúdo': nota,
+        clareza: nota, // ⬅️ envia como número para ser acumulado corretamente
       },
     });
   };

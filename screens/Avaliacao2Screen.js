@@ -12,7 +12,7 @@ export default function Avaliacao2Screen({ navigation, route }) {
       curso,
       avaliacoes: {
         ...avaliacoes,
-        'Atuação dos Instrutores': nota,
+        instrutores: nota,
       },
     });
   };

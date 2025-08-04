@@ -1,4 +1,3 @@
-// screens/Avaliacao4Screen.js
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -12,7 +11,7 @@ export default function Avaliacao4Screen({ navigation, route }) {
       curso,
       avaliacoes: {
         ...avaliacoes,
-        'Ambiente Espiritual e Fraterno': nota,
+        ambiente: nota, // padronizado para análise no Admin
       },
     });
   };
