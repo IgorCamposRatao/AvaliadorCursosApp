@@ -121,7 +121,7 @@ export default function AdminDashboardScreen({ navigation }) {
                 <Text style={styles.qtd}>{avaliacoes.length} avaliações</Text>
 
                 <View style={styles.mediasContainer}>
-                  <Text style={styles.mediaLabel}>Média:</Text>
+                  <Text style={styles.mediaLabel}>Médias</Text>
                   <View style={styles.mediaRow}>
                     <Text style={styles.mediaLabel}>Clareza:</Text>
                     {renderEstrelas(medias.clareza)}
@@ -151,7 +151,7 @@ export default function AdminDashboardScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    paddingTop:60,
     backgroundColor: '#fff',
   },
   title: {
@@ -167,6 +167,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 12,
+    padding:10,
     color: '#333',
   },
   card: {

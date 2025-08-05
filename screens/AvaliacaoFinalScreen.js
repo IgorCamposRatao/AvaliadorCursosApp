@@ -68,27 +68,32 @@ export default function AvaliacaoFinalScreen({ navigation, route }) {
 }
 
 const styles = StyleSheet.create({
-  container: { padding: 24 },
-  title: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    marginBottom: 24,
-    textAlign: 'center',
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    paddingHorizontal: 24,
+    paddingTop: 60, // mais espaço acima do título
   },
-  label: { fontSize: 16, marginBottom: 8 },
+  title: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 50, // espaço abaixo do título
+  },
+ label: { fontSize: 16, marginBottom: 8 },
   input: {
     borderColor: '#ccc',
     borderWidth: 1,
     borderRadius: 6,
     padding: 12,
-    marginBottom: 24,
+    marginBottom: 50,
   },
   inputMultiline: {
     borderColor: '#ccc',
     borderWidth: 1,
     borderRadius: 6,
     padding: 12,
-    marginBottom: 24,
+    marginBottom: 50,
     height: 100,
     textAlignVertical: 'top',
   },
@@ -97,9 +102,13 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 8,
   },
+  botaoDesativado: {
+    backgroundColor: '#ccc',
+  },
   botaoTexto: {
     color: '#fff',
     fontSize: 18,
     textAlign: 'center',
   },
 });
+

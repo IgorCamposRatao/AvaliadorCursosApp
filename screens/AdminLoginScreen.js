@@ -1,11 +1,19 @@
 // screens/AdminLoginScreen.js
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, Image } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function AdminLoginScreen({ navigation }) {
   const [senha, setSenha] = useState('');
 
-  const senhaCorreta = '12345'; // Você pode trocar por outra senha
+    useFocusEffect(
+    React.useCallback(() => {
+      setSenha('');
+    }, [])
+  );
+
+
+  const senhaCorreta = 'Fraternos@1989'; // Você pode trocar por outra senha
 
   const autenticar = () => {
     if (senha === senhaCorreta) {
@@ -17,6 +25,12 @@ export default function AdminLoginScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
+                  <Image
+        source={require('../assets/icon.png')}
+        style={styles.logo}
+        resizeMode="contain"
+      />
+
       <Text style={styles.title}>Área Administrativa</Text>
       <Text style={styles.label}>Digite a senha de administrador:</Text>
 
@@ -38,15 +52,21 @@ export default function AdminLoginScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+     paddingTop:100,
     padding: 24,
-    justifyContent: 'center',
-    backgroundColor: '#fff',
+     backgroundColor: '#fff',
+  },
+      logo: {
+    alignSelf: 'center',
+    width: 400,
+    height: 400,
+    marginBottom: 24,
   },
   title: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginBottom: 32,
+    marginBottom: 48,
   },
   label: {
     fontSize: 16,

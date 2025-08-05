@@ -57,13 +57,45 @@ export default function Avaliacao3Screen({ navigation, route }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 24, backgroundColor: '#fff' },
-  title: { fontSize: 22, fontWeight: 'bold', textAlign: 'center' },
-  subtitle: { fontSize: 18, textAlign: 'center', marginBottom: 24 },
-  tema: { fontSize: 16, fontWeight: 'bold', marginBottom: 12 },
-  bullets: { marginBottom: 24 },
-  pergunta: { fontSize: 16, marginBottom: 12 },
-  estrelas: { flexDirection: 'row', justifyContent: 'center', marginBottom: 32 },
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    paddingHorizontal: 24,
+    paddingTop: 60, // mais espaço acima do título
+  },
+  title: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 12, // espaço abaixo do título
+  },
+  subtitle: {
+    fontSize: 18,
+    textAlign: 'center',
+    marginBottom: 60, // espaço maior entre subtítulo e tema
+  },
+  tema: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 12,
+  },
+  bullets: {
+    marginBottom: 24,
+  },
+  bulletText: {
+    fontSize: 50,         // aumento do tamanho da fonte dos bullets
+    marginBottom: 6,      // espaço entre itens
+    lineHeight: 24,
+  },
+  pergunta: {
+    fontSize: 18,
+    marginBottom: 50,
+  },
+  estrelas: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginBottom: 50,
+  },
   botao: {
     backgroundColor: '#4CAF50',
     padding: 16,

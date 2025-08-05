@@ -1,10 +1,16 @@
 // screens/HomeScreen.js
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
 export default function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
+            <Image
+        source={require('../assets/icon.png')}
+        style={styles.logo}
+        resizeMode="contain"
+      />
+
       <Text style={styles.title}>Avaliação de Cursos</Text>
 
       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Identificacao')}>
@@ -21,9 +27,15 @@ export default function HomeScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    paddingTop:100,
     paddingHorizontal: 24,
     backgroundColor: '#fff',
+  },
+    logo: {
+    alignSelf: 'center',
+    width: 400,
+    height: 400,
+    marginBottom: 24,
   },
   title: {
     fontSize: 28,

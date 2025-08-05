@@ -1,6 +1,6 @@
 // screens/IdentificacaoScreen.js
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity,Image } from 'react-native';
 
 export default function IdentificacaoScreen({ navigation }) {
   const [cursoSelecionado, setCursoSelecionado] = useState(null);
@@ -9,6 +9,11 @@ export default function IdentificacaoScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
+                  <Image
+              source={require('../assets/icon.png')}
+              style={styles.logo}
+              resizeMode="contain"
+            />
       <Text style={styles.title}>Qual curso você participou?</Text>
 
       {cursos.map((curso, index) => (
@@ -43,11 +48,17 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 24,
     backgroundColor: '#fff',
-    justifyContent: 'center',
+    paddingTop:100,
+  },
+      logo: {
+    alignSelf: 'center',
+    width: 400,
+    height: 400,
+    marginBottom: 24,
   },
   title: {
-    fontSize: 22,
-    marginBottom: 24,
+    fontSize: 28,
+    marginBottom: 48,
     textAlign: 'center',
     fontWeight: 'bold',
   },
