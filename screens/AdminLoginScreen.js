@@ -13,40 +13,38 @@ import { Ionicons } from '@expo/vector-icons';
 import CheckBox from 'expo-checkbox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+const SENHA_ADMIN = '12345';
+
 export default function AdminLoginScreen({ navigation }) {
   const [senha, setSenha] = useState('');
   const [mostrar, setMostrar] = useState(false);
-  const [continueLoggedIn, setContinueLoggedIn] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [manterLogado, setManterLogado] = useState(false);
+  const [isLogged, setIsLogged] = useState(false);
 
-  // Verifica se deve manter logado
   useFocusEffect(
     useCallback(() => {
       (async () => {
         const flag = await AsyncStorage.getItem('adminLoggedIn');
-        setLoggedIn(flag === 'true');
-        setSenha('');
+        if (flag === 'true') {
+          setIsLogged(true);
+          setSenha(SENHA_ADMIN);
+        } else {
+          setIsLogged(false);
+          setSenha('');
+        }
         setMostrar(false);
-        setContinueLoggedIn(false);
+        setManterLogado(false);
       })();
     }, [])
   );
 
-  const senhaCorreta = 'Fraternos@1989';
-
   const autenticar = async () => {
-    if (senha === senhaCorreta) {
-      if (continueLoggedIn) {
+    if (senha === SENHA_ADMIN) {
+      if (manterLogado) {
         await AsyncStorage.setItem('adminLoggedIn', 'true');
       }
-      setLoggedIn(true);
-      navigation.reset({
-        index: 1,
-        routes: [
-          { name: 'Home' },
-          { name: 'AdminDashboard' }
-        ],
-      });
+      setIsLogged(true);
+      navigation.navigate('AdminDashboard');
     } else {
       Alert.alert('Senha incorreta', 'Tente novamente.');
     }
@@ -54,20 +52,9 @@ export default function AdminLoginScreen({ navigation }) {
 
   const logout = async () => {
     await AsyncStorage.removeItem('adminLoggedIn');
-    setLoggedIn(false);
+    setIsLogged(false);
+    setSenha('');
   };
-
-  if (loggedIn) {
-    return (
-      <View style={styles.containerLogged}>
-        <Text style={styles.title}>Área Administrativa</Text>
-        <Text style={styles.loggedText}>Você está logado como administrador.</Text>
-        <TouchableOpacity style={styles.button} onPress={logout}>
-          <Text style={styles.buttonText}>Logout</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  }
 
   return (
     <View style={styles.container}>
@@ -76,24 +63,33 @@ export default function AdminLoginScreen({ navigation }) {
 
       <View style={styles.inputWrapper}>
         <TextInput
-          style={[styles.input, styles.inputText]}
-          placeholder="Senha"
-          placeholderTextColor="#888"
+          style={styles.input}
           secureTextEntry={!mostrar}
           value={senha}
           onChangeText={setSenha}
+          placeholder="Senha"
+          placeholderTextColor="#888"
         />
         <TouchableOpacity
           style={styles.eyeButton}
           onPress={() => setMostrar(!mostrar)}
         >
-          <Ionicons name={mostrar ? 'eye-off' : 'eye'} size={24} color="#888" />
+          <Ionicons name={mostrar ? 'eye-off' : 'eye'} size={20} color="#888" />
         </TouchableOpacity>
       </View>
 
       <View style={styles.checkboxContainer}>
-        <CheckBox value={continueLoggedIn} onValueChange={setContinueLoggedIn} />
-        <Text style={styles.checkboxLabel}>Continuar logado</Text>
+        {!isLogged && (
+          <>
+            <CheckBox value={manterLogado} onValueChange={setManterLogado} />
+            <Text style={styles.checkboxLabel}>Continuar logado</Text>
+          </>
+        )}
+        {isLogged && (
+          <TouchableOpacity onPress={logout}>
+            <Text style={[styles.checkboxLabel, styles.logoutText]}>Fazer logout</Text>
+          </TouchableOpacity>
+        )}
       </View>
 
       <TouchableOpacity style={styles.button} onPress={autenticar}>
@@ -109,47 +105,31 @@ const styles = StyleSheet.create({
     padding: 24,
     backgroundColor: '#fff',
     justifyContent: 'center',
-    alignItems: 'center',
-  },
-  containerLogged: {
-    flex: 1,
-    padding: 24,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    textAlign: 'center',
+    alignSelf: 'center',
     marginBottom: 24,
-  },
-  loggedText: {
-    fontSize: 16,
-    textAlign: 'center',
-    marginBottom: 24,
-    color: '#333',
   },
   label: {
     fontSize: 16,
     marginBottom: 8,
-    alignSelf: 'flex-start', // alinha o texto à esquerda
+    alignSelf: 'flex-start',
   },
   inputWrapper: {
     flexDirection: 'row',
-    alignItems: 'center',
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 8,
     marginBottom: 16,
+    alignItems: 'center',
     paddingHorizontal: 12,
-    alignSelf: 'stretch',
   },
   input: {
     flex: 1,
     height: 48,
-  },
-  inputText: {
+    fontSize: 16,
     color: '#000',
   },
   eyeButton: {
@@ -157,12 +137,16 @@ const styles = StyleSheet.create({
   },
   checkboxContainer: {
     flexDirection: 'row',
-   alignSelf: 'flex-start',
-    justifyContent: 'flex-start',
-    marginBottom: 24,
-    paddingLeft:10,
+    alignItems: 'center',
+    marginBottom: 16,
   },
   checkboxLabel: {
+    marginLeft: 8,
+    fontSize: 16,
+  },
+  logoutText: {
+    color: '#f44336',
+    fontWeight: '600',
     marginLeft: 8,
     fontSize: 16,
   },
@@ -170,8 +154,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#2196F3',
     paddingVertical: 14,
     borderRadius: 8,
-    alignSelf: 'stretch',
-    marginBottom: 16,
     alignItems: 'center',
   },
   buttonText: {
