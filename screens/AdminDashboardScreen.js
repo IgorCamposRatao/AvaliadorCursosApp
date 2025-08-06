@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+// screens/AdminDashboardScreen.js
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -6,21 +7,18 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import { carregarAvaliacoes } from '../storage/storage';
 import { agruparPorCursoSemestreAno } from '../utils/agrupamento';
 import { Ionicons } from '@expo/vector-icons';
 
 const normalizeAvaliacao = (av) => {
-  // Desaninha se veio com { avaliacoes: {...} }
   const base = av.avaliacoes && typeof av.avaliacoes === 'object'
     ? { ...av, ...av.avaliacoes }
     : { ...av };
-
-  // Normaliza ambiente com fallback da chave antiga
   return {
     ...base,
-    ambiente:
-      base.ambiente ?? base['Ambiente Espiritual e Fraterno'] ?? null,
+    ambiente: base.ambiente ?? base['Ambiente Espiritual e Fraterno'] ?? null,
   };
 };
 
@@ -64,9 +62,7 @@ const renderEstrelas = (valor) => {
           style={{ marginRight: 2 }}
         />
       ))}
-      <Text style={{ marginLeft: 6, fontSize: 12 }}>
-        {valor.toFixed(2)}
-      </Text>
+      <Text style={{ marginLeft: 6, fontSize: 12 }}>{valor.toFixed(2)}</Text>
     </View>
   );
 };
@@ -74,27 +70,17 @@ const renderEstrelas = (valor) => {
 export default function AdminDashboardScreen({ navigation }) {
   const [agrupado, setAgrupado] = useState({});
 
-  useEffect(() => {
-    const agruparAvaliacoes = async () => {
-      const todas = await carregarAvaliacoes();
-      console.log('DEBUG: avaliações carregadas do storage:', todas);
-      const avaliacoesRaw = Array.isArray(todas) ? todas : [];
-      if (!Array.isArray(todas)) {
-        console.warn(
-          'AdminDashboardScreen: carregarAvaliacoes retornou não-array:',
-          todas
-        );
-      }
-
-      // Normaliza todas antes de agrupar (mantém original na estrutura)
-      const avaliacoesNormalizadas = avaliacoesRaw.map(normalizeAvaliacao);
-
-      const novoAgrupamento = agruparPorCursoSemestreAno(avaliacoesNormalizadas);
-      setAgrupado(novoAgrupamento);
-    };
-
-    agruparAvaliacoes();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      (async () => {
+        const todas = await carregarAvaliacoes();
+        const avals = Array.isArray(todas) ? todas : [];
+        const normalizadas = avals.map(normalizeAvaliacao);
+        const novoAgrupamento = agruparPorCursoSemestreAno(normalizadas);
+        setAgrupado(novoAgrupamento);
+      })();
+    }, [])
+  );
 
   return (
     <ScrollView style={styles.container}>
@@ -118,7 +104,9 @@ export default function AdminDashboardScreen({ navigation }) {
                 }
               >
                 <Text style={styles.periodo}>{periodo}</Text>
-                <Text style={styles.qtd}>{avaliacoes.length} avaliações</Text>
+                <Text style={styles.qtd}>
+  {avaliacoes.length} {avaliacoes.length === 1 ? 'avaliação' : 'avaliações'}
+</Text>
 
                 <View style={styles.mediasContainer}>
                   <Text style={styles.mediaLabel}>Médias</Text>
@@ -151,7 +139,7 @@ export default function AdminDashboardScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop:60,
+    paddingTop: 60,
     backgroundColor: '#fff',
   },
   title: {
@@ -167,7 +155,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 12,
-    padding:10,
+    padding: 10,
     color: '#333',
   },
   card: {
@@ -187,7 +175,6 @@ const styles = StyleSheet.create({
   },
   mediasContainer: {
     marginTop: 8,
-    gap: 6,
   },
   mediaRow: {
     flexDirection: 'row',

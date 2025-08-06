@@ -232,31 +232,36 @@ useFocusEffect(
     setSelecionarTodos(!selecionarTodos);
   };
 
-  const excluirSelecionados = async () => {
-    if (selecionados.length === 0) return;
-    Alert.alert(
-      'Confirmar exclusão',
-      `Deseja realmente excluir ${selecionados.length} avaliação(ões)?`,
-      [
-        { text: 'Cancelar', style: 'cancel' },
-        {
-          text: 'Excluir',
-          style: 'destructive',
-          onPress: async () => {
-            const todas = await carregarAvaliacoes();
-            const arr = Array.isArray(todas) ? todas : [];
-            const datasParaRemover = selecionados.map((i) => avaliacoesLocal[i].data);
-            const filtradas = arr.filter((av) => !datasParaRemover.includes(av.data));
-            await AsyncStorage.setItem('avaliacoes', JSON.stringify(filtradas));
-            const norm = filtradas.map(normalizeItem);
-            setAvaliacoesLocal(norm);
-            setSelecionados([]);
-            setSelecionarTodos(false);
-          },
+const excluirSelecionados = async () => {
+  if (selecionados.length === 0) return;
+
+  Alert.alert(
+    'Confirmar exclusão',
+    `Deseja realmente excluir ${selecionados.length} avaliação(ões)?`,
+    [
+      { text: 'Cancelar', style: 'cancel' },
+      {
+        text: 'Excluir',
+        style: 'destructive',
+        onPress: async () => {
+          // 1) Guarda os dados originais no AsyncStorage sem recriar tudo
+          const todasOriginais = await carregarAvaliacoes(); 
+          const datasParaRemover = selecionados.map(i => avaliacoesLocal[i].data);
+          const filtradasOriginais = todasOriginais.filter(av => !datasParaRemover.includes(av.data));
+          await AsyncStorage.setItem('avaliacoes', JSON.stringify(filtradasOriginais));
+
+          // 2) Atualiza ÚNICA E APENAS a lista que já está na tela
+          const novasLocais = avaliacoesLocal.filter((_, i) => !selecionados.includes(i));
+          setAvaliacoesLocal(novasLocais);
+
+          // 3) Reseta seleção
+          setSelecionados([]);
+          setSelecionarTodos(false);
         },
-      ]
-    );
-  };
+      },
+    ]
+  );
+};
 
   const analisarDados = () => {
     const campos = ['clareza', 'instrutores', 'didatica', 'ambiente'];
