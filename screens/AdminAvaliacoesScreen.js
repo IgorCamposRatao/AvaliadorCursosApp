@@ -448,7 +448,7 @@ const styles = StyleSheet.create({
   comentario: { fontSize: 15, marginTop: 8, fontStyle: 'italic' },
   ident: { fontSize: 14, marginTop: 4, color: '#444' },
   data: { fontSize: 12, color: '#888', marginTop: 4 },
-  footerFixed: { position: 'absolute', left: 0, right: 0, bottom: 0, flexDirection: 'row', padding: 12, backgroundColor: '#fff', borderTopWidth: 1, borderColor: '#ccc', justifyContent: 'space-between' },
+  footerFixed: { position: 'absolute', left: 0, right: 0, bottom: 0, flexDirection: 'row', padding: 15, paddingBottom:50, backgroundColor: '#fff', borderTopWidth: 1, borderColor: '#ccc', justifyContent: 'space-between' },
   button: { flex: 1, backgroundColor: '#4CAF50', paddingVertical: 12, paddingHorizontal: 14, borderRadius: 8, marginHorizontal: 5, alignItems: 'center' },
   deleteButton: { backgroundColor: '#f44336' },
   buttonText: { color: '#fff', fontWeight: 'bold' },

@@ -4,12 +4,12 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 export default function Avaliacao2Screen({ navigation, route }) {
-  const { curso, avaliacoes } = route.params;
+  const { curso, avaliacoes, ano } = route.params;
   const [nota, setNota] = useState(0);
 
   const handleAvancar = () => {
     navigation.navigate('Avaliacao3', {
-      curso,
+      curso, ano,
       avaliacoes: {
         ...avaliacoes,
         instrutores: nota,
@@ -20,8 +20,7 @@ export default function Avaliacao2Screen({ navigation, route }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Avaliação do Curso</Text>
-      <Text style={styles.subtitle}>{curso}</Text>
-
+<Text style={styles.subtitle}>{curso} – {ano}</Text>
       <Text style={styles.tema}>2. Atuação dos Instrutores</Text>
 
       <View style={styles.bullets}>

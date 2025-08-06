@@ -14,13 +14,13 @@ import {
 import { salvarAvaliacao } from '../storage/storage';
 
 export default function AvaliacaoFinalScreen({ navigation, route }) {
-  const { curso, avaliacoes } = route.params;
+  const { curso, avaliacoes, ano } = route.params;
   const [comentario, setComentario] = useState('');
   const [identificacao, setIdentificacao] = useState('');
 
   const handleEnviar = async () => {
     const dados = {
-      curso,
+      curso, ano,
       avaliacoes,
       comentario,
       identificacao: identificacao || 'Anônimo',

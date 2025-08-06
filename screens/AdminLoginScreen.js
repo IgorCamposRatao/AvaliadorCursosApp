@@ -13,7 +13,7 @@ import { Ionicons } from '@expo/vector-icons';
 import CheckBox from 'expo-checkbox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const SENHA_ADMIN = '12345';
+const SENHA_ADMIN = 'Fraternos@1989';
 
 export default function AdminLoginScreen({ navigation }) {
   const [senha, setSenha] = useState('');

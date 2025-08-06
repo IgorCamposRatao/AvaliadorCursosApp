@@ -1,28 +1,21 @@
 // screens/IdentificacaoScreen.js
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity,Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
 export default function IdentificacaoScreen({ navigation }) {
   const [cursoSelecionado, setCursoSelecionado] = useState(null);
-
   const cursos = ['Curso Terceiro Milênio', 'Curso Mediúnico'];
 
   return (
     <View style={styles.container}>
-                  <Image
-              source={require('../assets/icon.png')}
-              style={styles.logo}
-              resizeMode="contain"
-            />
+      <Image source={require('../assets/icon.png')} style={styles.logo} resizeMode="contain" />
+
       <Text style={styles.title}>Qual curso você participou?</Text>
 
       {cursos.map((curso, index) => (
         <TouchableOpacity
           key={index}
-          style={[
-            styles.option,
-            cursoSelecionado === curso && styles.selectedOption,
-          ]}
+          style={[styles.option, cursoSelecionado === curso && styles.selectedOption]}
           onPress={() => setCursoSelecionado(curso)}
         >
           <Text style={styles.optionText}>{curso}</Text>
@@ -30,12 +23,9 @@ export default function IdentificacaoScreen({ navigation }) {
       ))}
 
       <TouchableOpacity
-        style={[
-          styles.button,
-          !cursoSelecionado && styles.buttonDisabled,
-        ]}
+        style={[styles.button, !cursoSelecionado && styles.buttonDisabled]}
         disabled={!cursoSelecionado}
-        onPress={() => navigation.navigate('Avaliacao1', { curso: cursoSelecionado })}
+        onPress={() => navigation.navigate('YearSelection', { curso: cursoSelecionado })}
       >
         <Text style={styles.buttonText}>Avançar</Text>
       </TouchableOpacity>
@@ -44,24 +34,9 @@ export default function IdentificacaoScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 24,
-    backgroundColor: '#fff',
-    paddingTop:100,
-  },
-      logo: {
-    alignSelf: 'center',
-    width: 400,
-    height: 400,
-    marginBottom: 24,
-  },
-  title: {
-    fontSize: 28,
-    marginBottom: 48,
-    textAlign: 'center',
-    fontWeight: 'bold',
-  },
+  container: { flex: 1, padding: 24, backgroundColor: '#fff', paddingTop: 100 },
+  logo: { alignSelf: 'center', width: 200, height: 200, marginBottom: 24 },
+  title: { fontSize: 28, marginBottom: 48, textAlign: 'center', fontWeight: 'bold' },
   option: {
     padding: 16,
     marginBottom: 12,
@@ -73,21 +48,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#e0f7e9',
     borderColor: '#4CAF50',
   },
-  optionText: {
-    fontSize: 18,
-  },
-  button: {
-    backgroundColor: '#4CAF50',
-    padding: 16,
-    borderRadius: 8,
-    marginTop: 32,
-  },
-  buttonDisabled: {
-    backgroundColor: '#ccc',
-  },
-  buttonText: {
-    textAlign: 'center',
-    color: '#fff',
-    fontSize: 18,
-  },
+  optionText: { fontSize: 18 },
+  button: { backgroundColor: '#4CAF50', padding: 16, borderRadius: 8, marginTop: 32 },
+  buttonDisabled: { backgroundColor: '#ccc' },
+  buttonText: { textAlign: 'center', color: '#fff', fontSize: 18 },
 });
